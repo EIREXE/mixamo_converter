@@ -47,120 +47,120 @@ if "bpy" in locals():
 
 class MixamoPropertyGroup(bpy.types.PropertyGroup):
     '''Property container for options and paths of mixamo Converter'''
-    advanced = bpy.props.BoolProperty(
+    advanced: bpy.props.BoolProperty(
         name="Advanced Options",
         description="Display advanced options",
         default=False)
-    experimental = bpy.props.BoolProperty(
+    experimental: bpy.props.BoolProperty(
         name="Experimental Options",
         description="Experimental Options (use with caution, dirty workarounds)",
         default=False)
-    verbose_mode = bpy.props.BoolProperty(
+    verbose_mode: bpy.props.BoolProperty(
         name="Verbose Mode",
         description="Enables verbose output for each step when converting",
         default=False)
 
-    use_x = bpy.props.BoolProperty(
+    use_x: bpy.props.BoolProperty(
         name="Use X",
         description="If enabled, Horizontal motion is transfered to RootBone",
         default=True)
-    use_y = bpy.props.BoolProperty(
+    use_y: bpy.props.BoolProperty(
         name="Use Y",
         description="If enabled, Horizontal motion is transfered to RootBone",
         default=True)
-    use_z = bpy.props.BoolProperty(
+    use_z: bpy.props.BoolProperty(
         name="Use Z",
         description="If enabled, vertical motion is transfered to RootBone",
         default=True)
-    on_ground = bpy.props.BoolProperty(
+    on_ground: bpy.props.BoolProperty(
         name="On Ground",
         description="If enabled, root bone is on ground and only moves up at jumps",
         default=True)
 
-    use_rotation = bpy.props.BoolProperty(
+    use_rotation: bpy.props.BoolProperty(
         name="Transfer Rotation",
         description="Whether to transfer roation to root motion. Should be enabled for curve walking animations. Can be disabled for straight animations with strong hip Motion like Rolling",
         default=True)
 
-    scale = bpy.props.FloatProperty(
+    scale: bpy.props.FloatProperty(
         name="Scale",
         description="Scale down the Rig by this factor",
         default=1.0)
-    restoffset = bpy.props.FloatVectorProperty(
+    restoffset: bpy.props.FloatVectorProperty(
         name="Restpose Offset",
         description="Offset restpose by this. Use to correct if origin is not on ground",
         default=(0.0, 0.0, 0.0))
-    knee_offset = bpy.props.FloatVectorProperty(
+    knee_offset: bpy.props.FloatVectorProperty(
         name="Knee Offset",
         description="Offset knee joints by this. Use to fix flipping legs.",
         default=(0.0, 0.0, 0.0))
-    knee_bones = bpy.props.StringProperty(
+    knee_bones: bpy.props.StringProperty(
         name="Knee Bones",
         description="Names of knee bones to offset. Seperate names with commas.",
         maxlen = 256,
         default = "RightUpLeg,LeftUpLeg",
         subtype='BYTE_STRING')
-    force_overwrite = bpy.props.BoolProperty(
+    force_overwrite: bpy.props.BoolProperty(
         name="Force Overwrite",
         description="If enabled, overwrites files if output path is the same as input",
         default=False)
 
-    inpath = bpy.props.StringProperty(
+    inpath: bpy.props.StringProperty(
         name="Input Path",
         description="Path to mixamorigs",
         maxlen = 256,
         default = "",
         subtype='FILE_PATH')
-    add_leaf_bones = bpy.props.BoolProperty(
+    add_leaf_bones: bpy.props.BoolProperty(
         name="Add Leaf Bones",
         description="If enabled, adds leaf bones on export when batchconverting",
         default=False)
-    outpath = bpy.props.StringProperty(
+    outpath: bpy.props.StringProperty(
         name="Output Path",
         description="Where Processed rigs should be saved to",
         maxlen = 256,
         default = "",
         subtype='FILE_PATH')
-    ignore_leaf_bones = bpy.props.BoolProperty(
+    ignore_leaf_bones: bpy.props.BoolProperty(
         name="Ignore Leaf Bones",
         description="Ignore leaf bones on import",
         default=True)
-    automatic_bone_orientation = bpy.props.BoolProperty(
+    automatic_bone_orientation: bpy.props.BoolProperty(
         name="Automatic Bone Orientation",
         description="Try to align the major bone axis with the bone children",
         default=True)
 
-    hipname = bpy.props.StringProperty(
+    hipname: bpy.props.StringProperty(
         name="Hip Name",
         description="Additional Hipname to search for if not MixamoRig",
         maxlen = 256,
         default = "",
         subtype='BYTE_STRING')
-    b_remove_namespace = bpy.props.BoolProperty(
+    b_remove_namespace: bpy.props.BoolProperty(
         name="Remove Namespace",
         description="Removes Naespaces from objects and bones",
         default=True)
-    b_unreal_bones = bpy.props.BoolProperty(
+    b_unreal_bones: bpy.props.BoolProperty(
         name="Use Unreal Engine bone schema",
         description="Renames bones to match unreal engine schema",
         default=False)
-    fixbind = bpy.props.BoolProperty(
+    fixbind: bpy.props.BoolProperty(
         name="Fix Bind",
         description="If enabled, adds a dummy mesh and binds it, to prevent loss of bindpose when exporting fbx",
         default=False)
-    apply_rotation = bpy.props.BoolProperty(
+    apply_rotation: bpy.props.BoolProperty(
         name="Apply Rotation",
         description="Applies rotation during conversion to prevent rotation and scaling issues",
         default=True)
-    apply_scale = bpy.props.BoolProperty(
+    apply_scale: bpy.props.BoolProperty(
         name="Apply Scale",
         description="Applies scale during conversion to prevent rotation and scaling issues",
         default=False)
-    quaternion_clean_pre = bpy.props.BoolProperty(
+    quaternion_clean_pre: bpy.props.BoolProperty(
         name="Quaternion Clean Pre",
         description="Performs quaternion cleanup to before conversion",
         default=True)
-    quaternion_clean_post = bpy.props.BoolProperty(
+    quaternion_clean_post: bpy.props.BoolProperty(
         name="Quaternion Clean Post",
         description="Performs quaternion cleanup after conversion",
         default=True)
@@ -170,7 +170,7 @@ class OBJECT_OT_RemoveNamespace(bpy.types.Operator):
     '''Button/Operator for removing namespaces from selection'''
     bl_idname = "mixamo.remove_namespace"
     bl_label = ""
-    description = "Removes all namespaces of selection (for single Convert)"
+    bl_description = "Removes all namespaces of selection (for single Convert)"
 
     def execute(self, context):
         mixamo = context.scene.mixamo
@@ -188,7 +188,7 @@ class OBJECT_OT_UseBlenderBoneNames(bpy.types.Operator):
     '''Button/Operator for renaming bones to match unreal skeleton'''
     bl_idname = "mixamo.unreal_bones"
     bl_label = ""
-    description = "Renames bones to match the unreal skeleton (for single Convert)"
+    bl_description = "Renames bones to match the unreal skeleton (for single Convert)"
 
     def execute(self, context):
         mixamo = context.scene.mixamo
@@ -206,7 +206,7 @@ class OBJECT_OT_ConvertSingle(bpy.types.Operator):
     '''Button/Operator for converting single Rig'''
     bl_idname = "mixamo.convertsingle"
     bl_label = "Convert Single"
-    description = "Bakes rootmotion for a single, already imported rig."
+    bl_description = "Bakes rootmotion for a single, already imported rig."
 
     def execute(self, context):
         mixamo = context.scene.mixamo
@@ -226,7 +226,7 @@ class OBJECT_OT_ConvertSingle(bpy.types.Operator):
             use_rotation = mixamo.use_rotation,
             scale = mixamo.scale,
             restoffset = mixamo.restoffset,
-            hipname = mixamo.hipname.decode('UTF-8'),
+            hipname = mixamo.hipname.decode,
             fixbind = mixamo.fixbind,
             apply_rotation = mixamo.apply_rotation,
             apply_scale = mixamo.apply_scale,
@@ -249,7 +249,7 @@ class OBJECT_OT_ConvertSingleStepwise(bpy.types.Operator):
     '''Button/Operator for converting single Rig'''
     bl_idname = "mixamo.convertsingle_stepwise"
     bl_label = "Convert Single Stepwise"
-    description = "Bakes rootmotion for a single, already imported rig, executing step by step to review each step done."
+    bl_description = "Bakes rootmotion for a single, already imported rig, executing step by step to review each step done."
 
     def execute(self, context):
         mixamo = context.scene.mixamo
@@ -299,7 +299,7 @@ class OBJECT_OT_ApplyRestoffset(bpy.types.Operator):
     '''Button/Operator for converting single Rig'''
     bl_idname = "mixamo.apply_restoffset"
     bl_label = "Apply Restoffset"
-    description = "Applies Restoffset to restpose and corrects animation"
+    bl_description = "Applies Restoffset to restpose and corrects animation"
 
     def execute(self, context):
         mixamo = context.scene.mixamo
@@ -324,7 +324,7 @@ class OBJECT_OT_ConvertBatch(bpy.types.Operator):
     '''Button/Operator for starting batch conversion'''
     bl_idname = "mixamo.convertbatch"
     bl_label = "Batch Convert"
-    description = "Converts all mixamorigs from the [Input Path] and exports them to the [Ouput Path]"
+    bl_description = "Converts all mixamorigs from the [Input Path] and exports them to the [Ouput Path]"
 
     def execute(self, context):
         mixamo = context.scene.mixamo
